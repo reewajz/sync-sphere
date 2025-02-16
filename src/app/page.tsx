@@ -1,7 +1,11 @@
 import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { Button } from "../components/ui/button";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+  if (userId != null) redirect("/events");
   return (
     <div className="text-center container my-4 mx-auto">
       <h1 className="text-3xl mb-4">Fancy Home Page</h1>
